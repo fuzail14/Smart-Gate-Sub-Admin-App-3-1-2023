@@ -1,4 +1,3 @@
-
 class User {
   final int? userid;
   final String? firstName;
@@ -16,9 +15,11 @@ class User {
   final String? created_at;
   final String? updated_at;
   final int? superadminid;
+  final int? structureType;
   // final List<GateKeeper>? gatekeeperlist;
 
   User({
+    this.structureType,
     this.userid,
     this.image,
     this.societyid,

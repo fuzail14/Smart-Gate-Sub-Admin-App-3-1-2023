@@ -21,6 +21,7 @@ class AddHousesController extends GetxController {
   final toController = TextEditingController();
   final addressController = TextEditingController();
   int? streetid;
+
   
 
   @override
@@ -69,6 +70,8 @@ class AddHousesController extends GetxController {
     request.fields['societyid'] = societyid.toString();
 
     request.fields['superadminid'] = superadminid.toString();
+    request.fields['type'] = 'street';
+    
 
     var responsed = await request.send();
     var response = await Http.Response.fromStream(responsed);
@@ -78,7 +81,7 @@ class AddHousesController extends GetxController {
 
       print(response.body);
 
-      Get.offNamed(houses, arguments: user);
+      Get.offNamed(houses, arguments: [user,streetid]);
 
       Get.snackbar("Houses Add Successfully", "");
     } else if (response.statusCode == 403) {

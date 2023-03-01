@@ -302,8 +302,9 @@ class HomeScreen extends GetView {
                       child: AdminScreenContainer(
                         onTap: () async {
                           if (controller.societyModel!.structuretype == 1) {
-                            Get.offAndToNamed(houses,
-                                arguments: controller.user);
+                            Get.offNamed(houses,
+                                arguments: controller.user
+                                );
                           } else if (controller.societyModel!.structuretype ==
                               2) {
                             Get.offAndToNamed(streets,

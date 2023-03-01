@@ -16,7 +16,6 @@ class LoginController extends GetxController {
 
   TextEditingController userCnicController = TextEditingController();
   TextEditingController userPasswordController = TextEditingController();
-  SocietyModel? society;
 
   Future loginApi(String cnic, String password) async {
     print("Login Api  Functions Hits ! ");
@@ -41,9 +40,11 @@ class LoginController extends GetxController {
       print(response.body);
       var data = jsonDecode(response.body);
       if (response.statusCode == 200 && data['data']['roleid'] == 2) {
-        print(data);
-        print(data['data']['firstname']);
+
+        final SocietyModel societyModel=await  viewSocietyApi(data['data']['societyid'], data['Bearer']);
+
         final User user = User(
+           structureType:societyModel.structuretype,
             userid: data['data']['subadminid'],
             firstName: data['data']['firstname'],
             lastName: data['data']['lastname'],
@@ -60,7 +61,9 @@ class LoginController extends GetxController {
             subadminid: data['data']['subadminid'],
             superadminid: data['data']['superadminid'],
             bearerToken: data['Bearer']);
+
         MySharedPreferences.setUserData(user: user);
+
         FirebaseMessaging.instance.getToken().then((value) {
           String? token = value;
           print('Fire Base token');
@@ -68,11 +71,7 @@ class LoginController extends GetxController {
           print(token);
           fcmtokenrefresh(user.userid!, token!, user.bearerToken!);
         });
-        await viewSocietyApi(user.societyid!, user.bearerToken!);
-        MySharedPreferences.setSocietyData(societyModel: society!);
 
-        print(user.userid);
-        print(response.statusCode);
         Get.offAndToNamed(homescreen, arguments: user);
         Get.snackbar(
           "Login Successfully",
@@ -141,7 +140,7 @@ class LoginController extends GetxController {
     update();
   }
 
-  Future viewSocietyApi(int societyid, String token) async {
+   viewSocietyApi(int societyid, String token) async {
     final response = await Http.get(
       Uri.parse(Api.view_society_api + "/" + societyid.toString()),
       headers: <String, String>{
@@ -150,13 +149,11 @@ class LoginController extends GetxController {
       },
     );
     var data = jsonDecode(response.body.toString());
-
     var mydata = data['data'];
-    print(response.statusCode);
 
     if (response.statusCode == 200) {
       for (var e in mydata) {
-        society = SocietyModel(
+     return      SocietyModel(
             id: e['id'],
             name: e['name'],
             address: e['address'],
@@ -167,11 +164,16 @@ class LoginController extends GetxController {
             area: e['area'],
             structuretype: e['structuretype'],
             superadminid: e['superadminid']);
-        print('societyyyyyy');
-        print(society);
+
+
+
+
       }
 
-      update();
-    } else {}
+
+    } else {
+
+
+    }
   }
 }

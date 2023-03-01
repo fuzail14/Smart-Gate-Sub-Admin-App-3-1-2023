@@ -10,7 +10,8 @@ import 'package:societyadminapp/Widgets/My%20Back%20Button/my_back_button.dart';
 
 import '../../../../Widgets/Loader/loader.dart';
 
-class Houses extends GetView {
+class Houses extends GetView<HouseController> {
+  HouseController houseController = HouseController();
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HouseController>(
@@ -29,7 +30,8 @@ class Houses extends GetView {
                       iconSize: MediaQuery.of(context).size.height * 0.065,
                       icon: SvgPicture.asset('assets/floatingbutton.svg'),
                       onPressed: () {
-                        Get.offNamed(addhouses, arguments: [controller.user,controller.streetid]);
+                        Get.offNamed(addhouses,
+                            arguments: [controller.user, controller.streetid]);
 
                         // Get.offAndToNamed(addblocks,arguments: [controller.pid,controller.bearerToken]);
                       }),
@@ -45,108 +47,209 @@ class Houses extends GetView {
                         height: MediaQuery.of(context).size.height * 0.04,
                       ),
                       Expanded(
-                          child: FutureBuilder(
-                              future:
-                                  // (controller.structuretype == 2)
-                                  //     ? controller.housesApi(
-                                  //         dynamicid: controller
-                                  //             .streetsController!.streetid!,
-                                  //         bearerToken: controller.user.bearerToken!)
-                                  //     :
+                          child: 
+                          // (controller.structuretype == 2 ||
+                          //         controller.structuretype == 3 ||
+                          //         controller.structuretype == 4)
+                          //     ?
+                               FutureBuilder(
+                                  future: 
+                                  
+                                  ( controller.structuretype == 1)?
                                   controller.housesApi(
-                                      dynamicid: controller.streetid!,
+                                      dynamicid: controller.user.societyid!,
+                                      bearerToken:
+                                          controller.user.bearerToken!):
+                                          controller.housesApi(
+                                      dynamicid: controller.streetid,
                                       bearerToken:
                                           controller.user.bearerToken!),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot snapshot) {
-                                if (snapshot.hasData) {
-                                  if (snapshot.data != null &&
-                                      snapshot.data.data.length != 0) {
-                                    return ListView.builder(
-                                      itemCount: snapshot.data.data.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return SizedBox(
-                                          height: 64,
-                                          width: 324,
-                                          child: Card(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
-                                            ),
-                                            color: HexColor('#F3F3F3'),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      24, 0, 0, 0),
-                                              child: Row(
-                                                children: [
-                                                  Container(
-                                                    height: 43,
-                                                    width: 43,
-                                                    decoration: BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                        color: Color.fromRGBO(
-                                                            255, 153, 0, 0.14),
-                                                        image: DecorationImage(
-                                                            image: AssetImage(
-                                                                'assets/house1.png'))),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 20,
-                                                  ),
-                                                  Text(
-                                                    snapshot.data.data[index]
-                                                            .address
-                                                            .toString() +
-                                                        " " +
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot snapshot) {
+                                    if (snapshot.hasData) {
+                                      if (snapshot.data != null &&
+                                          snapshot.data.data.length != 0) {
+                                        return ListView.builder(
+                                          itemCount: snapshot.data.data.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return SizedBox(
+                                              height: 64,
+                                              width: 324,
+                                              child: Card(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                color: HexColor('#F3F3F3'),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          24, 0, 0, 0),
+                                                  child: Row(
+                                                    children: [
+                                                      Container(
+                                                        height: 43,
+                                                        width: 43,
+                                                        decoration: BoxDecoration(
+                                                            shape:
+                                                                BoxShape.circle,
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    255,
+                                                                    153,
+                                                                    0,
+                                                                    0.14),
+                                                            image: DecorationImage(
+                                                                image: AssetImage(
+                                                                    'assets/house1.png'))),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 20,
+                                                      ),
+                                                      Text(
                                                         snapshot
-                                                            .data
-                                                            .data[index]
-                                                            .iteration
-                                                            .toString(),
-                                                    style: GoogleFonts.ubuntu(
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        // color: secondaryColor,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontSize: 18,
-                                                        color: HexColor(
-                                                            '#4D4D4D')),
+                                                                .data
+                                                                .data[index]
+                                                                .address
+                                                                .toString() +
+                                                            " " +
+                                                            snapshot
+                                                                .data
+                                                                .data[index]
+                                                                .iteration
+                                                                .toString(),
+                                                        style:
+                                                            GoogleFonts.ubuntu(
+                                                                fontStyle:
+                                                                    FontStyle
+                                                                        .normal,
+                                                                // color: secondaryColor,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontSize: 18,
+                                                                color: HexColor(
+                                                                    '#4D4D4D')),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 132,
+                                                      ),
+                                                      Image.asset(
+                                                          'assets/arrowfrwd.png')
+                                                    ],
                                                   ),
-                                                  SizedBox(
-                                                    width: 132,
-                                                  ),
-                                                  Image.asset(
-                                                      'assets/arrowfrwd.png')
-                                                ],
+                                                ),
                                               ),
-                                            ),
-                                          ),
+                                            );
+                                          },
                                         );
-                                      },
-                                    );
-                                  } else {
-                                    return EmptyList(name: 'No Houses');
-                                  }
-                                } else if (snapshot.hasError) {
-                                  return Icon(Icons.error_outline);
-                                } else {
-                                  return Loader();
-                                }
-                              })),
-//                 MyButton(
-//                     name: 'Next',
-//                     onPressed: controller.isLoading
-//                         ? null
-//                         : () {
-//                             if (controller.formkey.currentState!.validate()) {
-// print(controller.myApiData);
-//                             } else {
-//                               return null;
-//                             }
-//                           })
+                                      } else {
+                                        return EmptyList(name: 'No Houses');
+                                      }
+                                    } else if (snapshot.hasError) {
+                                      return Icon(Icons.error_outline);
+                                    } else {
+                                      return Loader();
+                                    }
+                                  })),
+                              // FutureBuilder(
+                              //     future: controller.housesApi(
+                              //         dynamicid: controller.user.societyid!,
+                              //         bearerToken:
+                              //             controller.user.bearerToken!),
+                              //     builder: (BuildContext context,
+                              //         AsyncSnapshot snapshot) {
+                              //       if (snapshot.hasData) {
+                              //         if (snapshot.data != null &&
+                              //             snapshot.data.data.length != 0) {
+                              //           return ListView.builder(
+                              //             itemCount: snapshot.data.data.length,
+                              //             itemBuilder: (BuildContext context,
+                              //                 int index) {
+                              //               return SizedBox(
+                              //                 height: 64,
+                              //                 width: 324,
+                              //                 child: Card(
+                              //                   shape: RoundedRectangleBorder(
+                              //                     borderRadius:
+                              //                         BorderRadius.circular(
+                              //                             10.0),
+                              //                   ),
+                              //                   color: HexColor('#F3F3F3'),
+                              //                   child: Padding(
+                              //                     padding:
+                              //                         const EdgeInsets.fromLTRB(
+                              //                             24, 0, 0, 0),
+                              //                     child: Row(
+                              //                       children: [
+                              //                         Container(
+                              //                           height: 43,
+                              //                           width: 43,
+                              //                           decoration: BoxDecoration(
+                              //                               shape:
+                              //                                   BoxShape.circle,
+                              //                               color:
+                              //                                   Color.fromRGBO(
+                              //                                       255,
+                              //                                       153,
+                              //                                       0,
+                              //                                       0.14),
+                              //                               image: DecorationImage(
+                              //                                   image: AssetImage(
+                              //                                       'assets/house1.png'))),
+                              //                         ),
+                              //                         SizedBox(
+                              //                           width: 20,
+                              //                         ),
+                              //                         Text(
+                              //                           snapshot
+                              //                                   .data
+                              //                                   .data[index]
+                              //                                   .address
+                              //                                   .toString() +
+                              //                               " " +
+                              //                               snapshot
+                              //                                   .data
+                              //                                   .data[index]
+                              //                                   .iteration
+                              //                                   .toString(),
+                              //                           style:
+                              //                               GoogleFonts.ubuntu(
+                              //                                   fontStyle:
+                              //                                       FontStyle
+                              //                                           .normal,
+                              //                                   // color: secondaryColor,
+                              //                                   fontWeight:
+                              //                                       FontWeight
+                              //                                           .w500,
+                              //                                   fontSize: 18,
+                              //                                   color: HexColor(
+                              //                                       '#4D4D4D')),
+                              //                         ),
+                              //                         SizedBox(
+                              //                           width: 132,
+                              //                         ),
+                              //                         Image.asset(
+                              //                             'assets/arrowfrwd.png')
+                              //                       ],
+                              //                     ),
+                              //                   ),
+                              //                 ),
+                              //               );
+                              //             },
+                              //           );
+                              //         } else {
+                              //           return EmptyList(name: 'No Houses');
+                              //         }
+                              //       } else if (snapshot.hasError) {
+                              //         return Icon(Icons.error_outline);
+                              //       } else {
+                              //         return Loader();
+                              //       }
+                              //     })),
+                    
                     ],
                   )),
             ),

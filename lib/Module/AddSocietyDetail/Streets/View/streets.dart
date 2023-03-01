@@ -64,7 +64,7 @@ class Street extends GetView {
                                                   snapshot.data.data[index].id;
                                               print(
                                                   'street id on tap ${controller.streetid}');
-                                              Get.offNamed(houses,
+                                              Get.offAndToNamed(houses,
                                                   arguments: [controller.user, snapshot.data.data[index].id]);
                                             },
                                             child: Column(

@@ -9,6 +9,7 @@ class MySharedPreferences {
   static setUserData({required User user}) async {
     await SharedPreferences.getInstance().then((value) {
       value.setInt(userIdSPKey, user.userid ?? 0);
+      value.setInt(structuretypeSPKey, user.structureType ?? 0);
       value.setString(firstNameSPKey, user.firstName ?? '');
       value.setString(mobileNoSPKey, user.mobileno ?? '');
       value.setString(lastNameSPKey, user.lastName ?? '');
@@ -28,6 +29,7 @@ class MySharedPreferences {
     User user = User();
     await SharedPreferences.getInstance().then((value) {
       value.getInt(userIdSPKey) ?? value.setInt(userIdSPKey, 0);
+      value.getInt(structuretypeSPKey) ?? value.setInt(structuretypeSPKey, 0);
       value.getString(firstNameSPKey) ?? value.setString(firstNameSPKey, '');
       value.getString(lastNameSPKey) ?? value.setString(lastNameSPKey, '');
       value.getString(mobileNoSPKey) ?? value.setString(mobileNoSPKey, '');
@@ -41,7 +43,7 @@ class MySharedPreferences {
       value.getInt(societyidSPKey) ?? value.setInt(societyidSPKey, 0);
       value.getInt(superadminidSPKey) ?? value.setInt(superadminidSPKey, 0);
 
-      user = User(
+      user = User(structureType: value.getInt(structuretypeSPKey) ,
         userid: value.getInt(userIdSPKey),
         firstName: value.getString(firstNameSPKey),
         lastName: value.getString(lastNameSPKey),
