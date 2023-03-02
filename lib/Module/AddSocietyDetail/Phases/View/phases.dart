@@ -8,7 +8,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:societyadminapp/Constants/constants.dart';
 
-
 import 'package:societyadminapp/Module/AddSocietyDetail/Phases/Controller/phases_controller.dart';
 import 'package:societyadminapp/Services/Shared%20Preferences/MySharedPreferences.dart';
 import 'package:societyadminapp/Widgets/Empty%20List/empty_list.dart';
@@ -30,120 +29,126 @@ class Phases extends GetView {
                     iconSize: MediaQuery.of(context).size.height * 0.065,
                     icon: SvgPicture.asset('assets/floatingbutton.svg'),
                     onPressed: () {
-
-                       Get.offNamed(addphases,
-                           arguments: controller.userdata);
+                      Get.offNamed(addphases, arguments: controller.user);
                     }),
                 body: Column(
                   children: [
                     MyBackButton(
                       text: 'Phases',
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height*0.04,),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.04,
+                    ),
                     Expanded(
                         child: FutureBuilder(
                             future: controller.phasesApi(
-                                userid: controller.userdata.userid!,
-                                token: controller.userdata.bearerToken!),
+                                societyid: controller.user.societyid!,
+                                token: controller.user.bearerToken!),
                             builder:
                                 (BuildContext context, AsyncSnapshot snapshot) {
                               if (snapshot.hasData) {
+                                if (snapshot.data != null &&
+                                    snapshot.data.data.length != 0) {
+                                  return Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 32,
+                                      ),
+                                      Expanded(
+                                        child: GridView.builder(
+                                          padding: EdgeInsets.only(
+                                              left: 28, right: 27),
+                                          itemCount: snapshot.data.data.length,
+                                          gridDelegate:
+                                              SliverGridDelegateWithFixedCrossAxisCount(
+                                                  crossAxisCount: 2,
+                                                  crossAxisSpacing: 35,
+                                                  mainAxisSpacing: 15),
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            // controller.setNoOfPhases(snapshot.data.noofphases.toString());
+                                            // controller.noofphases= snapshot.data.noofphases.toString();
+                                            return GestureDetector(
+                                              onTap: () async {
+                                                User user =
+                                                    await MySharedPreferences
+                                                        .getUserData();
+                                                // Get.offNamed(blocks, arguments: [
+                                                //   snapshot.data.data[index].id,
+                                                //   user.bearerToken
+                                                // ]);
 
-    if (snapshot.data != null && snapshot.data.data.length!=0) {
-      return Column(
-        children: [
-            SizedBox(
-              height: 32,
-            ),
-            Expanded(
-              child: GridView.builder(
-                padding:
-                EdgeInsets.only(left: 28, right: 27),
-                itemCount: snapshot.data.data.length,
-                gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 35,
-                    mainAxisSpacing: 15),
-                itemBuilder:
-                    (BuildContext context, int index) {
-                  // controller.setNoOfPhases(snapshot.data.noofphases.toString());
-                  // controller.noofphases= snapshot.data.noofphases.toString();
-                  return GestureDetector(
-                    onTap: () async {
-                      User user =
-                      await MySharedPreferences
-                          .getUserData();
-                      // Get.offNamed(blocks, arguments: [
-                      //   snapshot.data.data[index].id,
-                      //   user.bearerToken
-                      // ]);
+                                                Get.toNamed(blockorbuilding,
+                                                    arguments: [
+                                                      snapshot
+                                                          .data.data[index].id,
+                                                      user.bearerToken
+                                                    ]);
+                                              },
+                                              child: Card(
+                                                elevation: 1.5,
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+                                                      height: 60,
+                                                      width: 60,
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        gradient: LinearGradient(
+                                                            begin: Alignment
+                                                                .topCenter,
+                                                            end: Alignment
+                                                                .bottomCenter,
+                                                            colors: [
+                                                              HexColor(
+                                                                  '#FFFFFF'),
+                                                              HexColor(
+                                                                  '#FF9900')
+                                                            ]),
+                                                      ),
+                                                      child: Image(
+                                                          image: AssetImage(
+                                                              'assets/phasepic.png')),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 8,
+                                                    ),
+                                                    Text(
+                                                      snapshot.data.data[index]
+                                                              .address +
+                                                          " " +
+                                                          snapshot
+                                                              .data
+                                                              .data[index]
+                                                              .iteration,
+                                                      style: GoogleFonts.ubuntu(
+                                                          fontStyle:
+                                                              FontStyle.normal,
 
-                      Get.toNamed(blockorbuilding,
-                          arguments: [
-                            snapshot.data.data[index].id,
-                            user.bearerToken
-                          ]);
-                    },
-                    child: Card(
-                      elevation: 1.5,
-                      child: Column(
-                        mainAxisAlignment:
-                        MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 60,
-                            width: 60,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              gradient: LinearGradient(
-                                  begin:
-                                  Alignment.topCenter,
-                                  end: Alignment
-                                      .bottomCenter,
-                                  colors: [
-                                    HexColor('#FFFFFF'),
-                                    HexColor('#FF9900')
-                                  ]),
-                            ),
-                            child: Image(
-                                image: AssetImage(
-                                    'assets/phasepic.png')),
-                          ),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            snapshot
-                                .data.data[index].name,
-                            style: GoogleFonts.ubuntu(
-                                fontStyle:
-                                FontStyle.normal,
+                                                          // color: secondaryColor,
 
-                                // color: secondaryColor,
-
-                                fontWeight:
-                                FontWeight.w500,
-                                fontSize: 18,
-                                color:
-                                HexColor('#FF9900')),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-        ],
-      );
-    }
-    else {
-      return EmptyList( name: 'No Phases',);
-    }
-
-
-
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 18,
+                                                          color: HexColor(
+                                                              '#FF9900')),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                } else {
+                                  return EmptyList(
+                                    name: 'No Phases',
+                                  );
+                                }
                               } else if (snapshot.hasError) {
                                 return Icon(Icons.error_outline);
                               } else {

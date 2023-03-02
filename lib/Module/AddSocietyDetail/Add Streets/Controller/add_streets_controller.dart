@@ -49,6 +49,13 @@ class AddStreetsController extends GetxController {
     isLoading = true;
     update();
 
+    String? type;
+    if (user.structureType == 1) {
+      type = 'society';
+    } else if (user.structureType == 2) {
+      type = 'blocks';
+    }
+
     Map<String, String> headers = {"Authorization": "Bearer $bearerToken"};
     var request = Http.MultipartRequest('POST', Uri.parse(Api.addstreets));
     request.headers.addAll(headers);
@@ -61,6 +68,7 @@ class AddStreetsController extends GetxController {
     request.fields['societyid'] = societyid.toString();
     request.fields['superadminid'] = superadminid.toString();
     request.fields['dynamicid'] = dynamicid.toString();
+    request.fields['type'] = type!;
 
     var responsed = await request.send();
     var response = await Http.Response.fromStream(responsed);

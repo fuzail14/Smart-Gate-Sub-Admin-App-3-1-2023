@@ -23,6 +23,7 @@ class Data {
   Data({
     required this.id,
     required this.address,
+    required this.type,
     required this.iteration,
     required this.dynamicid,
     required this.subadminid,
@@ -33,6 +34,7 @@ class Data {
   });
   late final int id;
   late final String address;
+  late final String type;
   late final String iteration;
   late final int dynamicid;
   late final int subadminid;
@@ -44,6 +46,7 @@ class Data {
   Data.fromJson(Map<String, dynamic> json){
     id = json['id'];
     address = json['address'];
+    type = json['type'];
     iteration = json['iteration'];
     dynamicid = json['dynamicid'];
     subadminid = json['subadminid'];
@@ -57,6 +60,7 @@ class Data {
     final _data = <String, dynamic>{};
     _data['id'] = id;
     _data['address'] = address;
+    _data['type'] = type;
     _data['iteration'] = iteration;
     _data['dynamicid'] = dynamicid;
     _data['subadminid'] = subadminid;

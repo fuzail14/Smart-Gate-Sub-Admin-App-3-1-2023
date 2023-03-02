@@ -9,8 +9,8 @@ import '../Model/Phases.dart';
 
 class PhasesController extends GetxController {
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
-  var user = Get.arguments;
-  late final User userdata;
+  var  data= Get.arguments;
+  late final User user;
   Phases? phases;
 
   List<Map<String, dynamic>> myApiData = [];
@@ -22,17 +22,17 @@ class PhasesController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    userdata = this.user;
+    user = data;
   }
 
 
 
-  Future<Phases> phasesApi({required int userid, required String token}) async {
-    print("${userid.toString()}");
+  Future<Phases> phasesApi({required int societyid, required String token}) async {
+    print("${societyid.toString()}");
     print(token);
 
     final response = await Http.get(
-      Uri.parse(Api.phases + "/" + userid.toString()),
+      Uri.parse(Api.phases + "/" + societyid.toString()),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': "Bearer $token"
@@ -81,7 +81,7 @@ class PhasesController extends GetxController {
       Get.snackbar("Phases Add Successfully", "");
 
 
-      Get.offAndToNamed(phasess, arguments: userdata);
+      Get.offAndToNamed(phasess, arguments: user);
 
     } else if (response.statusCode == 403) {
       isLoading = false;

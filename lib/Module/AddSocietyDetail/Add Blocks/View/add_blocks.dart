@@ -6,6 +6,7 @@ import 'package:societyadminapp/Widgets/My%20Back%20Button/my_back_button.dart';
 import '../../../../Constants/constants.dart';
 import '../../../../Routes/set_routes.dart';
 import '../../../../Widgets/My Button/my_button.dart';
+import '../../../../Widgets/My TextForm Field/my_textform_field.dart';
 
 class AddBlocks extends GetView {
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
@@ -25,22 +26,25 @@ class AddBlocks extends GetView {
                     children: <Widget>[
                       MyBackButton(
                         text: 'Add Blocks',
-                        onTap: (){
-
-                          Get.offAndToNamed(blocks, arguments: [
-                           controller.pid,
-                            controller.bearerToken
-                          ]);
-
+                        onTap: () {
+                          Get.offAndToNamed(blocks, arguments: controller.user);
                         },
                       ),
                       SizedBox(height: 20),
                       SizedBox(
-                        height: 244,
+                        height: 344,
                         width: 299,
                         child: Card(
                           child: Column(
                             children: [
+                              MyTextFormField(
+                                hintText: 'Name',
+                                labelText: 'Name',
+                                onEnabledBorderColor: primaryColor,
+                                onFocusedBorderColor: primaryColor,
+                                controller: controller.addressController,
+                                validator: emptyStringValidator,
+                              ),
                               Padding(
                                 padding: EdgeInsets.only(top: 28, left: 27),
                                 child: Padding(
@@ -185,11 +189,15 @@ class AddBlocks extends GetView {
                                   // print(controller.user.bearerToken);
 
                                   controller.addBlocksApi(
-                                    bearerToken: controller.bearerToken!,
+                                    address: controller.addressController.text,
+                                    dynamicid: controller.user.societyid!,
+                                    societyid: controller.user.societyid!,
+                                    subadminid: controller.user.userid!,
+                                    superadminid: controller.user.superadminid!,
+                                    bearerToken: controller.user.bearerToken!,
                                     from: controller.fromController.text
                                         .toString(),
                                     to: controller.toController.text.toString(),
-                                    pid: controller.pid!,
                                   );
                                 },
                                 name: 'Save',
@@ -198,7 +206,6 @@ class AddBlocks extends GetView {
                           ),
                         ),
                       ),
-                    
                     ],
                   ),
                 ),

@@ -301,20 +301,14 @@ class HomeScreen extends GetView {
                       padding: EdgeInsets.only(left: 32, top: 32),
                       child: AdminScreenContainer(
                         onTap: () async {
-                          if (controller.societyModel!.structuretype == 1) {
-                            Get.offNamed(houses,
-                                arguments: controller.user
-                                );
-                          } else if (controller.societyModel!.structuretype ==
+                          if (controller.user.structureType == 1) {
+                            Get.offNamed(streets, arguments: controller.user);
+                          } else if (controller.user.structureType ==
                               2) {
-                            Get.offAndToNamed(streets,
-                                arguments: controller.user);
-                          } else if (controller.societyModel!.structuretype ==
-                              3) {
                             Get.offAndToNamed(blocks,
                                 arguments: controller.user);
-                          } else if (controller.societyModel!.structuretype ==
-                              4) {
+                          } else if (controller.user.structureType ==
+                              3) {
                             Get.offAndToNamed(phasess,
                                 arguments: controller.user);
                           }

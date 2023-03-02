@@ -9,34 +9,32 @@ import '../../../../Constants/api_routes.dart';
 import '../../../Login/Model/User.dart';
 
 class AddPhasesController extends GetxController {
-  var user = Get.arguments;
+  var data = Get.arguments;
   int? index;
-  late final User userdata;
+  late final User user;
 
-   bool isLoading = false;
+  bool isLoading = false;
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    userdata = this.user;
-
+    user = data;
   }
-  
-  
 
   final fromController = TextEditingController();
   final toController = TextEditingController();
-  
-
+  final addressController = TextEditingController();
 
   addPhaseApi({
     required String bearerToken,
     required int subadminid,
     required int societyid,
-
+    required int superadminid,
+    required int dynamicid,
     required String from,
     required String to,
+    required String address,
   }) async {
     isLoading = true;
     update();
@@ -46,13 +44,17 @@ class AddPhasesController extends GetxController {
     request.headers.addAll(headers);
 
     request.fields['from'] = from;
+
     request.fields['to'] = to;
+    request.fields['address'] = address;
+
     request.fields['subadminid'] = subadminid.toString();
     request.fields['societyid'] = societyid.toString();
+    request.fields['superadminid'] = superadminid.toString();
+    request.fields['dynamicid'] = dynamicid.toString();
 
     var responsed = await request.send();
     var response = await Http.Response.fromStream(responsed);
-
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body.toString());
@@ -60,21 +62,17 @@ class AddPhasesController extends GetxController {
       print(response.body);
       Get.snackbar("Phases Add Successfully", "");
 
-      Get.offNamed(phasess, arguments: userdata);
-
-    }
-    else if (response.statusCode == 403) {
+      Get.offNamed(phasess, arguments: user);
+    } else if (response.statusCode == 403) {
       isLoading = false;
       update();
       var data = jsonDecode(response.body.toString());
       (data['errors'] as List)
           .map((e) => Get.snackbar(
-        "Error",
-        e.toString(),
-      ))
+                "Error",
+                e.toString(),
+              ))
           .toList();
-
-
     } else {
       isLoading = false;
       update();

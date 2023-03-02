@@ -26,12 +26,20 @@ class StreetsController extends GetxController {
   }
 
   Future<Streets> streetsApi(
-      {required int bid, required String bearerToken}) async {
-    print("${bid.toString()}");
+      {required int dynamicid,
+      required String bearerToken}) async {
+    print("${dynamicid.toString()}");
     print(bearerToken);
+     String? type;
+    if (user.structureType == 1) {
+      type = 'society';
+    } else if (user.structureType == 2) {
+      type = 'blocks';
+    }
 
     final response = await Http.get(
-      Uri.parse(Api.streets + "/" + bid.toString()),
+      Uri.parse(
+          Api.streets + "/" + dynamicid.toString() + "/" + type.toString()),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': "Bearer $bearerToken"

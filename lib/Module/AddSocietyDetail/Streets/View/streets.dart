@@ -18,7 +18,7 @@ class Street extends GetView {
         builder: (controller) {
           return WillPopScope(
             onWillPop: () async {
-              await Get.offNamed(blocks, arguments: controller.user);
+              await Get.offNamed(homescreen, arguments: controller.user);
               return false;
             },
             child: SafeArea(
@@ -36,7 +36,7 @@ class Street extends GetView {
                       MyBackButton(
                         text: 'Streets',
                         onTap: () {
-                          Get.offNamed(blocks, arguments: controller.user);
+                          Get.offNamed(homescreen, arguments: controller.user);
                         },
                       ),
                       SizedBox(
@@ -44,9 +44,14 @@ class Street extends GetView {
                       ),
                       Expanded(
                           child: FutureBuilder(
-                              future: controller.streetsApi(
-                                  bid: controller.user.societyid!,
-                                  bearerToken: controller.user.bearerToken!),
+                              future: (controller.user.structureType == 1)
+                                  ? controller.streetsApi(
+                                      dynamicid: controller.user.societyid!,
+                                      bearerToken: controller.user.bearerToken!)
+                                  : controller.streetsApi(
+                                      dynamicid: 0,
+                                      bearerToken:
+                                          controller.user.bearerToken!),
                               builder: (BuildContext context,
                                   AsyncSnapshot snapshot) {
                                 if (snapshot.hasData) {
@@ -65,7 +70,10 @@ class Street extends GetView {
                                               print(
                                                   'street id on tap ${controller.streetid}');
                                               Get.offAndToNamed(houses,
-                                                  arguments: [controller.user, snapshot.data.data[index].id]);
+                                                  arguments: [
+                                                    controller.user,
+                                                    snapshot.data.data[index].id
+                                                  ]);
                                             },
                                             child: Column(
                                               children: [

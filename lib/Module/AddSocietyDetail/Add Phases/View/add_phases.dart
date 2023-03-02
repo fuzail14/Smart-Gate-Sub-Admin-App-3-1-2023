@@ -5,10 +5,10 @@ import 'package:societyadminapp/Widgets/My%20Back%20Button/my_back_button.dart';
 import '../../../../Constants/constants.dart';
 import '../../../../Routes/set_routes.dart';
 import '../../../../Widgets/My Button/my_button.dart';
+import '../../../../Widgets/My TextForm Field/my_textform_field.dart';
 import '../Controller/add_phases_controller.dart';
 
 class AddPhases extends GetView {
-
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
   @override
@@ -26,19 +26,26 @@ class AddPhases extends GetView {
                     children: <Widget>[
                       MyBackButton(
                         text: 'Add Phases',
-                        onTap: (){
-
-                          Get.offAndToNamed(phasess, arguments: controller.user);
-
+                        onTap: () {
+                          Get.offAndToNamed(phasess,
+                              arguments: controller.user);
                         },
                       ),
                       SizedBox(height: 20),
                       SizedBox(
-                        height: 244,
+                        height: 344,
                         width: 299,
                         child: Card(
                           child: Column(
                             children: [
+                              MyTextFormField(
+                                hintText: 'Name',
+                                labelText: 'Name',
+                                onEnabledBorderColor: primaryColor,
+                                onFocusedBorderColor: primaryColor,
+                                controller: controller.addressController,
+                                validator: emptyStringValidator,
+                              ),
                               Padding(
                                 padding: EdgeInsets.only(top: 28, left: 27),
                                 child: Padding(
@@ -184,11 +191,16 @@ class AddPhases extends GetView {
                                   print(controller.user.societyid);
 
                                   controller.addPhaseApi(
-                                      bearerToken: controller.user.bearerToken,
-                                      subadminid: controller.user.userid,
-                                      from: controller.fromController.text.toString(),
-                                      to: controller.toController.text.toString(),
-                                      societyid: controller.user.societyid);
+                                    address: controller.addressController.text,
+                                    dynamicid: controller.user.societyid!,
+                                    societyid: controller.user.societyid!,
+                                    subadminid: controller.user.userid!,
+                                    superadminid: controller.user.superadminid!,
+                                    bearerToken: controller.user.bearerToken!,
+                                    from: controller.fromController.text
+                                        .toString(),
+                                    to: controller.toController.text.toString(),
+                                  );
                                 },
                                 name: 'Save',
                               )
@@ -196,7 +208,6 @@ class AddPhases extends GetView {
                           ),
                         ),
                       ),
-                   
                     ],
                   ),
                 ),
