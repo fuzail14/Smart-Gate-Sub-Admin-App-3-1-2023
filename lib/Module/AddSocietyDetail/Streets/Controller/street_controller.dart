@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:societyadminapp/Module/AddSocietyDetail/Streets/Model/Streets.dart';
 import 'package:http/http.dart' as Http;
+import 'package:societyadminapp/Services/Shared%20Preferences/MySharedPreferences.dart';
 import '../../../../Constants/api_routes.dart';
 import '../../../Login/Model/User.dart';
 
@@ -10,30 +12,73 @@ class StreetsController extends GetxController {
   // int? bid ;
   // int? pid ;
   // String? bearerToken;
-  late final User user;
-  int? streetid;
+  User user = User(
+      structureType: 0,
+      userid: 0,
+      image: '',
+      societyid: 0,
+      subadminid: 0,
+      firstName: '',
+      lastName: '',
+      cnic: '',
+      roleId: 0,
+      roleName: '',
+      bearerToken: '',
+      address: '',
+      mobileno: '',
+      fcmtoken: '',
+      superadminid: 0,
+      created_at: '',
+      updated_at: '');
+
+  
+  int blockid=0;
 
   @override
-  void onInit() {
+  void onInit() async {
     // TODO: implement onInit
 
-    super.onInit();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      super.onInit();
+     
 
-    user = data;
+      user = await MySharedPreferences.getUserData();
+
+      if (user.structureType == 1) {
+        print('yahan ata ha k ni');
+
+        user = data;
+        print(user);
+      } else {
+        user = data[0];
+        blockid = data[1];
+      }
+
+      update();
+    });
+
+    // user = await MySharedPreferences.getUserData();
+
+    // Future.delayed(
+    //   Duration(seconds: 2),
+    //   () {
+
+    //   },
+    // );
+
     // bid=data[0];
     // pid=data[1];
     // bearerToken=data[2];
   }
 
   Future<Streets> streetsApi(
-      {required int dynamicid,
-      required String bearerToken}) async {
+      {required int dynamicid, required String bearerToken}) async {
     print("${dynamicid.toString()}");
     print(bearerToken);
-     String? type;
+    String? type;
     if (user.structureType == 1) {
       type = 'society';
-    } else if (user.structureType == 2) {
+    } else {
       type = 'blocks';
     }
 

@@ -24,7 +24,7 @@ class Data {
     required this.id,
     required this.address,
     required this.iteration,
-    required this.dynamicid,
+    required this.streetid,
     required this.subadminid,
     required this.societyid,
     required this.superadminid,
@@ -34,7 +34,7 @@ class Data {
   late final int id;
   late final String address;
   late final String iteration;
-  late final int dynamicid;
+  late final int streetid;
   late final int subadminid;
   late final int societyid;
   late final int superadminid;
@@ -45,7 +45,7 @@ class Data {
     id = json['id'];
     address = json['address'];
     iteration = json['iteration'];
-    dynamicid = json['dynamicid'];
+    streetid = json['streetid'];
     subadminid = json['subadminid'];
     societyid = json['societyid'];
     superadminid = json['superadminid'];
@@ -58,7 +58,7 @@ class Data {
     _data['id'] = id;
     _data['address'] = address;
     _data['iteration'] = iteration;
-    _data['dynamicid'] = dynamicid;
+    _data['streetid'] = streetid;
     _data['subadminid'] = subadminid;
     _data['societyid'] = societyid;
     _data['superadminid'] = superadminid;

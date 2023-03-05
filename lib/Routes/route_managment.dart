@@ -60,11 +60,15 @@ class RouteManagement {
         name: splashscreen,
         page: () => SplashScreen(),
         binding: ScreenBindings(),
+        transition: Transition.leftToRight
+
       ),
       GetPage(
         name: login,
         page: () => Login(),
         binding: ScreenBindings(),
+        transition: Transition.leftToRight
+        
       ),
       GetPage(
           name: homescreen,
@@ -208,35 +212,35 @@ class RouteManagement {
         binding: ScreenBindings(),
       ),
       GetPage(
-        name: addphases,
-        page: () => AddPhases(),
-        binding: ScreenBindings(),
-      ),
+          name: addphases,
+          page: () => AddPhases(),
+          binding: ScreenBindings(),
+          transition: Transition.leftToRight),
       GetPage(
-        name: phasess,
-        page: () => Phases(),
-        binding: ScreenBindings(),
-      ),
+          name: phasess,
+          page: () => Phases(),
+          binding: ScreenBindings(),
+          transition: Transition.leftToRight),
       GetPage(
-        name: blocks,
-        page: () => Blocks(),
-        binding: ScreenBindings(),
-      ),
+          name: blocks,
+          page: () => Blocks(),
+          binding: ScreenBindings(),
+          transition: Transition.leftToRight),
       GetPage(
-        name: addblocks,
-        page: () => AddBlocks(),
-        binding: ScreenBindings(),
-      ),
+          name: addblocks,
+          page: () => AddBlocks(),
+          binding: ScreenBindings(),
+          transition: Transition.leftToRight),
       GetPage(
-        name: streets,
-        page: () => Street(),
-        binding: ScreenBindings(),
-      ),
+          name: streets,
+          page: () => Street(),
+          binding: ScreenBindings(),
+          transition: Transition.leftToRight),
       GetPage(
-        name: addstreets,
-        page: () => AddStreets(),
-        binding: ScreenBindings(),
-      ),
+          name: addstreets,
+          page: () => AddStreets(),
+          binding: ScreenBindings(),
+          transition: Transition.leftToRight),
       GetPage(
         name: addhouses,
         page: () => AddHouses(),

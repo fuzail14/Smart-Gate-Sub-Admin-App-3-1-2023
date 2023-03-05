@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as Http;
 import 'package:societyadminapp/Module/AddSocietyDetail/Blocks/Model/Blocks.dart';
@@ -11,8 +12,25 @@ class BlocksController extends GetxController {
   var data = Get.arguments;
 // int? pid ;
 // String? bearerToken;
-  late final User user;
-
+  User user = User(
+      structureType: 0,
+      userid: 0,
+      image: '',
+      societyid: 0,
+      subadminid: 0,
+      firstName: '',
+      lastName: '',
+      cnic: '',
+      roleId: 0,
+      roleName: '',
+      bearerToken: '',
+      address: '',
+      mobileno: '',
+      fcmtoken: '',
+      superadminid: 0,
+      created_at: '',
+      updated_at: '');
+  int phaseid = 0;
   @override
   void onInit() {
     // TODO: implement onInit
@@ -21,8 +39,21 @@ class BlocksController extends GetxController {
 
     // pid=data[0];
     // bearerToken=data[1];
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      super.onInit();
 
-    user = data;
+      user = await MySharedPreferences.getUserData();
+
+      if (user.structureType == 2) {
+        user = data;
+      } else {
+        user = data[0];
+        phaseid = data[1];
+      }
+
+      update();
+    });
+  
   }
 
   Future<Blocks> blocksApi(

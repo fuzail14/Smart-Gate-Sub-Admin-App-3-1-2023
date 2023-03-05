@@ -6,17 +6,36 @@ import 'package:http/http.dart' as Http;
 import 'package:societyadminapp/Routes/set_routes.dart';
 
 import '../../../../Constants/api_routes.dart';
+import '../../../../Services/Shared Preferences/MySharedPreferences.dart';
 import '../../../Login/Model/User.dart';
 
 class AddBlockController extends GetxController {
   var data = Get.arguments;
 
   bool isLoading = false;
-  late final User user;
+  User user = User(
+      structureType: 0,
+      userid: 0,
+      image: '',
+      societyid: 0,
+      subadminid: 0,
+      firstName: '',
+      lastName: '',
+      cnic: '',
+      roleId: 0,
+      roleName: '',
+      bearerToken: '',
+      address: '',
+      mobileno: '',
+      fcmtoken: '',
+      superadminid: 0,
+      created_at: '',
+      updated_at: '');
 
   final fromController = TextEditingController();
   final toController = TextEditingController();
   final addressController = TextEditingController();
+  int? phaseid;
 
   @override
   void onInit() {
@@ -26,8 +45,20 @@ class AddBlockController extends GetxController {
 
     // pid = data[0];
     // bearerToken = data[1];
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      super.onInit();
 
-    user = data;
+      user = await MySharedPreferences.getUserData();
+
+      if (user.structureType == 2) {
+        user = data;
+      } else {
+        user = data[0];
+        phaseid = data[1];
+      }
+
+      update();
+    });
   }
 
   addBlocksApi({
@@ -76,7 +107,11 @@ class AddBlockController extends GetxController {
       print(data);
       print(response.body);
       Get.snackbar("Blocks Add Successfully", "");
-      Get.offNamed(blocks, arguments: user);
+      if (user.structureType == 2) {
+        Get.offNamed(blocks, arguments: user);
+      } else {
+        Get.offNamed(blocks, arguments: [user, phaseid]);
+      }
     } else if (response.statusCode == 403) {
       isLoading = false;
       update();

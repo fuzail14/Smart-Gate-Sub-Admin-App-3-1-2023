@@ -6,6 +6,7 @@ import 'package:http/http.dart' as Http;
 
 import '../../../../Constants/api_routes.dart';
 import '../../../../Routes/set_routes.dart';
+import '../../../../Services/Shared Preferences/MySharedPreferences.dart';
 import '../../../Login/Model/User.dart';
 
 class AddStreetsController extends GetxController {
@@ -13,23 +14,57 @@ class AddStreetsController extends GetxController {
   // int? bid;
   // int? pid;
 
-  late final User user;
   bool isLoading = false;
   String? bearerToken;
   final fromController = TextEditingController();
   final toController = TextEditingController();
   final addressController = TextEditingController();
+  User user = User(
+      structureType: 0,
+      userid: 0,
+      image: '',
+      societyid: 0,
+      subadminid: 0,
+      firstName: '',
+      lastName: '',
+      cnic: '',
+      roleId: 0,
+      roleName: '',
+      bearerToken: '',
+      address: '',
+      mobileno: '',
+      fcmtoken: '',
+      superadminid: 0,
+      created_at: '',
+      updated_at: '');
+
+  int? blockid;
 
   @override
   void onInit() {
     // TODO: implement onInit
 
     super.onInit();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      super.onInit();
 
-    // bid=data[0];
-    // pid=data[1];
-    // bearerToken=data[2];
-    user = data;
+      user = await MySharedPreferences.getUserData();
+      if (user.structureType == 1) {
+        user = data;
+      } else {
+        user = data[0];
+        blockid = data[1];
+      }
+
+      update();
+    });
+
+    // if (user.structureType == 1) {
+    //   user = data;
+    // } else {
+    //   user = data[0];
+    //   blockid = data[1];
+    // }
   }
 
   addStreetsApi({
@@ -52,7 +87,7 @@ class AddStreetsController extends GetxController {
     String? type;
     if (user.structureType == 1) {
       type = 'society';
-    } else if (user.structureType == 2) {
+    } else {
       type = 'blocks';
     }
 
@@ -68,7 +103,7 @@ class AddStreetsController extends GetxController {
     request.fields['societyid'] = societyid.toString();
     request.fields['superadminid'] = superadminid.toString();
     request.fields['dynamicid'] = dynamicid.toString();
-    request.fields['type'] = type!;
+    request.fields['type'] = type;
 
     var responsed = await request.send();
     var response = await Http.Response.fromStream(responsed);
@@ -78,7 +113,11 @@ class AddStreetsController extends GetxController {
 
       print(response.body);
       Get.snackbar("Streets Add Successfully", "");
-      Get.offAndToNamed(streets, arguments: user);
+      if (user.structureType == 1) {
+        Get.offAndToNamed(streets, arguments: user);
+      } else {
+        Get.offAndToNamed(streets, arguments: [user, blockid]);
+      }
     } else if (response.statusCode == 403) {
       isLoading = false;
       update();

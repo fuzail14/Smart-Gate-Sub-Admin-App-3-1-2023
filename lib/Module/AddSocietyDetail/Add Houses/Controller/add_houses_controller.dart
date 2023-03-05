@@ -40,7 +40,7 @@ class AddHousesController extends GetxController {
 
   addHousesApi({
     required String bearerToken,
-    required int dynamicid,
+    required int streetid,
     required int subadminid,
     required int superadminid,
     required int societyid,
@@ -65,12 +65,12 @@ class AddHousesController extends GetxController {
     request.fields['to'] = to;
     request.fields['address'] = address;
 
-    request.fields['dynamicid'] = dynamicid.toString();
+    request.fields['streetid'] = streetid.toString();
     request.fields['subadminid'] = subadminid.toString();
     request.fields['societyid'] = societyid.toString();
 
     request.fields['superadminid'] = superadminid.toString();
-    request.fields['type'] = 'street';
+    
     
 
     var responsed = await request.send();

@@ -18,7 +18,12 @@ class Street extends GetView {
         builder: (controller) {
           return WillPopScope(
             onWillPop: () async {
-              await Get.offNamed(homescreen, arguments: controller.user);
+              if (controller.user.structureType == 1) {
+                await Get.offNamed(homescreen, arguments: controller.user);
+              } else {
+                await Get.offNamed(blocks, arguments: controller.user);
+              }
+
               return false;
             },
             child: SafeArea(
@@ -28,7 +33,12 @@ class Street extends GetView {
                       iconSize: MediaQuery.of(context).size.height * 0.065,
                       icon: SvgPicture.asset('assets/floatingbutton.svg'),
                       onPressed: () {
-                        Get.offNamed(addstreets, arguments: controller.user);
+                        if (controller.user.structureType == 1) {
+                          Get.offNamed(addstreets, arguments: controller.user);
+                        } else {
+                          Get.offNamed(addstreets,
+                              arguments: [controller.user, controller.blockid]);
+                        }
                         // Get.offAndToNamed(addblocks,arguments: [controller.pid,controller.bearerToken]);
                       }),
                   body: Column(
@@ -36,7 +46,15 @@ class Street extends GetView {
                       MyBackButton(
                         text: 'Streets',
                         onTap: () {
-                          Get.offNamed(homescreen, arguments: controller.user);
+                          if (controller.user.structureType == 1) {
+                            Get.offNamed(homescreen,
+                                arguments: controller.user);
+                          } else {
+                            Get.offNamed(
+                              blocks,
+                              arguments: controller.user,
+                            );
+                          }
                         },
                       ),
                       SizedBox(
@@ -49,7 +67,7 @@ class Street extends GetView {
                                       dynamicid: controller.user.societyid!,
                                       bearerToken: controller.user.bearerToken!)
                                   : controller.streetsApi(
-                                      dynamicid: 0,
+                                      dynamicid: controller.blockid,
                                       bearerToken:
                                           controller.user.bearerToken!),
                               builder: (BuildContext context,
@@ -65,10 +83,7 @@ class Street extends GetView {
                                           height: 80,
                                           child: GestureDetector(
                                             onTap: () {
-                                              controller.streetid =
-                                                  snapshot.data.data[index].id;
-                                              print(
-                                                  'street id on tap ${controller.streetid}');
+                                              
                                               Get.offAndToNamed(houses,
                                                   arguments: [
                                                     controller.user,

@@ -14,31 +14,44 @@ import '../../../Login/Model/User.dart';
 class Blocks extends GetView {
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        User user = await MySharedPreferences.getUserData();
-        Get.offNamed(phasess, arguments: user);
+    return GetBuilder<BlocksController>(
+        init: BlocksController(),
+        builder: (controller) {
+          return WillPopScope(
+            onWillPop: () async {
+              if (controller.user.structureType == 2) {
+                Get.offNamed(homescreen, arguments: controller.user);
+              } else {
+                Get.offNamed(phasess, arguments: controller.user);
+              }
 
-        return false;
-      },
-      child: GetBuilder<BlocksController>(
-          init: BlocksController(),
-          builder: (controller) {
-            return SafeArea(
+              return false;
+            },
+            child: SafeArea(
               child: Scaffold(
                   floatingActionButton: IconButton(
                       padding: EdgeInsets.only(top: 85),
                       iconSize: MediaQuery.of(context).size.height * 0.065,
                       icon: SvgPicture.asset('assets/floatingbutton.svg'),
                       onPressed: () {
-                        Get.offNamed(addblocks, arguments: controller.user);
+                        if (controller.user.structureType == 2) {
+                          Get.offNamed(addblocks, arguments: controller.user);
+                        } else if (controller.user.structureType == 3) {
+                          Get.offNamed(addblocks,
+                              arguments: [controller.user, controller.phaseid]);
+                        }
                       }),
                   body: Column(
                     children: [
                       MyBackButton(
                         text: 'Blocks',
                         onTap: () async {
-                          Get.offNamed(phasess, arguments: controller.user);
+                          if (controller.user.structureType == 2) {
+                            Get.offNamed(homescreen,
+                                arguments: controller.user);
+                          } else {
+                            Get.offNamed(phasess, arguments: controller.user);
+                          }
                         },
                       ),
                       SizedBox(
@@ -46,9 +59,14 @@ class Blocks extends GetView {
                       ),
                       Expanded(
                           child: FutureBuilder(
-                              future: controller.blocksApi(
-                                  dynamicid: controller.user.societyid!,
-                                  bearerToken: controller.user.bearerToken!),
+                              future: (controller.user.structureType == 2)
+                                  ? controller.blocksApi(
+                                      dynamicid: controller.user.societyid!,
+                                      bearerToken: controller.user.bearerToken!)
+                                  : controller.blocksApi(
+                                      dynamicid: controller.phaseid!,
+                                      bearerToken:
+                                          controller.user.bearerToken!),
                               builder: (BuildContext context,
                                   AsyncSnapshot snapshot) {
                                 if (snapshot.hasData) {
@@ -65,8 +83,10 @@ class Blocks extends GetView {
                                               //bid        print( snapshot.data.data[index].id);
                                               //pid        print( snapshot.data.data[index].pid);
 
-                                              Get.offNamed(streets,
-                                                  arguments: controller.user);
+                                              Get.offNamed(streets, arguments: [
+                                                controller.user,
+                                                snapshot.data.data[index].id
+                                              ]);
                                             },
                                             child: Column(
                                               children: [
@@ -140,8 +160,8 @@ class Blocks extends GetView {
                               })),
                     ],
                   )),
-            );
-          }),
-    );
+            ),
+          );
+        });
   }
 }

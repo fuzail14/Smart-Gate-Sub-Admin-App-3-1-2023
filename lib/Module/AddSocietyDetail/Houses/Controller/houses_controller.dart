@@ -18,27 +18,10 @@ class HouseController extends GetxController {
   // int? pid ;
   // String? bearerToken;
 
-  User user = User(
-      structureType: 0,
-      userid: 0,
-      image: '',
-      societyid: 0,
-      subadminid: 0,
-      firstName: '',
-      lastName: '',
-      cnic: '',
-      roleId: 0,
-      roleName: '',
-      bearerToken: '',
-      address: '',
-      mobileno: '',
-      fcmtoken: '',
-      superadminid: 0,
-      created_at: '',
-      updated_at: '');
+late final   User user;
 
   int? structuretype;
-  int streetid = 0;
+  int? streetid;
 
   @override
   void onInit() async {
@@ -48,37 +31,39 @@ class HouseController extends GetxController {
     // bid=data[1];
     // pid=data[2];
     // bearerToken=data[3];
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      super.onInit();
+     user = data[0];
+     streetid = data[1];
 
-      user = await MySharedPreferences.getUserData();
-      structuretype = user.structureType;
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+    //   super.onInit();
 
-      if (structuretype == 1) {
-        user = data;
+    //   user = await MySharedPreferences.getUserData();
+    //   structuretype = user.structureType;
 
-        print(user);
-        print(data);
-      } else {
-        user = data[0];
-        streetid = data[1];
-      }
-      update();
-    });
+    //   //if (structuretype == 1) {
+
+    //     print(user);
+    //     print(data);
+    //   //}
+    //   // else {
+    //   //   user = data[0];
+    //   //   streetid = data[1];
+    //   // }
+    //   update();
+    // });
   }
 
   Future<Houses> housesApi(
       {required int dynamicid, required String bearerToken}) async {
-    String? type;
-    if (user.structureType == 1) {
-      type = 'house';
-    } else if (user.structureType == 2) {
-      type = 'street';
-    }
+    // String? type;
+    // if (user.structureType == 1) {
+    //   type = 'house';
+    // } else if (user.structureType == 2) {
+    //   type = 'street';
+    // }
 
     final response = await Http.get(
-      Uri.parse(
-          Api.properties + "/" + dynamicid.toString() + "/" + type.toString()),
+      Uri.parse(Api.properties + "/" + dynamicid.toString()),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': "Bearer $bearerToken"
@@ -87,7 +72,7 @@ class HouseController extends GetxController {
     var data = jsonDecode(response.body.toString());
 
     if (response.statusCode == 200) {
-      print(response.body);
+      
       return Houses.fromJson(data);
     }
 

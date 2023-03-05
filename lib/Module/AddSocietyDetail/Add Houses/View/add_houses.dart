@@ -209,7 +209,7 @@ class AddHouses extends GetView {
                                           .toString(),
                                       to: controller.toController.text
                                           .toString(),
-                                      dynamicid: controller.streetid!,
+                                      streetid: controller.streetid!,
                                       
                                     );
                                   },

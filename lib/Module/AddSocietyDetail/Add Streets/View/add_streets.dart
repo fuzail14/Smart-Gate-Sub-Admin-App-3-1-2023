@@ -183,17 +183,37 @@ class AddStreets extends GetView {
                                 onPressed: () {
                                   // print(controller.user.userid);
                                   // print(controller.user.bearerToken);
-                                  controller.addStreetsApi(
-                                    address: controller.addressController.text,
-                                    dynamicid: controller.user.societyid!,
-                                    societyid: controller.user.societyid!,
-                                    subadminid: controller.user.userid!,
-                                    superadminid: controller.user.superadminid!,
-                                    bearerToken: controller.user.bearerToken!,
-                                    from: controller.fromController.text
-                                        .toString(),
-                                    to: controller.toController.text.toString(),
-                                  );
+                                  if (controller.user.structureType == 1) {
+                                    controller.addStreetsApi(
+                                      address:
+                                          controller.addressController.text,
+                                      dynamicid: controller.user.societyid!,
+                                      societyid: controller.user.societyid!,
+                                      subadminid: controller.user.userid!,
+                                      superadminid:
+                                          controller.user.superadminid!,
+                                      bearerToken: controller.user.bearerToken!,
+                                      from: controller.fromController.text
+                                          .toString(),
+                                      to: controller.toController.text
+                                          .toString(),
+                                    );
+                                  } else {
+                                    controller.addStreetsApi(
+                                      address:
+                                          controller.addressController.text,
+                                      dynamicid: controller.blockid!,
+                                      societyid: controller.user.societyid!,
+                                      subadminid: controller.user.userid!,
+                                      superadminid:
+                                          controller.user.superadminid!,
+                                      bearerToken: controller.user.bearerToken!,
+                                      from: controller.fromController.text
+                                          .toString(),
+                                      to: controller.toController.text
+                                          .toString(),
+                                    );
+                                  }
                                 },
                                 name: 'Save',
                               )

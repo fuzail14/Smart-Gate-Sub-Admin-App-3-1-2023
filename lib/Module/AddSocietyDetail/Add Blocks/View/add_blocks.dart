@@ -185,20 +185,40 @@ class AddBlocks extends GetView {
                                 width: 222,
                                 border: 5,
                                 onPressed: () {
-                                  // print(controller.user.userid);
+                                  print('save button');
                                   // print(controller.user.bearerToken);
-
-                                  controller.addBlocksApi(
-                                    address: controller.addressController.text,
-                                    dynamicid: controller.user.societyid!,
-                                    societyid: controller.user.societyid!,
-                                    subadminid: controller.user.userid!,
-                                    superadminid: controller.user.superadminid!,
-                                    bearerToken: controller.user.bearerToken!,
-                                    from: controller.fromController.text
-                                        .toString(),
-                                    to: controller.toController.text.toString(),
-                                  );
+                                  if (controller.user.structureType == 2) {
+                                    controller.addBlocksApi(
+                                      address:
+                                          controller.addressController.text,
+                                      dynamicid: controller.user.societyid!,
+                                      societyid: controller.user.societyid!,
+                                      subadminid: controller.user.userid!,
+                                      superadminid:
+                                          controller.user.superadminid!,
+                                      bearerToken: controller.user.bearerToken!,
+                                      from: controller.fromController.text
+                                          .toString(),
+                                      to: controller.toController.text
+                                          .toString(),
+                                    );
+                                  } else {
+                                    print('idhr aaaa');
+                                    controller.addBlocksApi(
+                                      address:
+                                          controller.addressController.text,
+                                      dynamicid: controller.phaseid!,
+                                      societyid: controller.user.societyid!,
+                                      subadminid: controller.user.userid!,
+                                      superadminid:
+                                          controller.user.superadminid!,
+                                      bearerToken: controller.user.bearerToken!,
+                                      from: controller.fromController.text
+                                          .toString(),
+                                      to: controller.toController.text
+                                          .toString(),
+                                    );
+                                  }
                                 },
                                 name: 'Save',
                               )
