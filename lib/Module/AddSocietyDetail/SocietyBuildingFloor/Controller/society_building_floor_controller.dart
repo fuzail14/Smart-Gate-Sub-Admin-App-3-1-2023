@@ -6,16 +6,14 @@ import '../../../../Constants/api_routes.dart';
 import '../../../Login/Model/User.dart';
 import '../Model/SocietyBuildingFloor.dart';
 
-
 class SocietyBuildingFloorsController extends GetxController {
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
-  var user = Get.arguments;
-  
+  var data = Get.arguments;
+
   String? noofphases;
-  
+
   int? buildingid;
-  int? pid;
-  var bearertoken;
+  late final User user;
   final List<TextEditingController> fromController = [];
   final List<TextEditingController> toController = [];
   List<Map<String, dynamic>> myApiData = [];
@@ -24,15 +22,12 @@ class SocietyBuildingFloorsController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    buildingid = user[0];
-    
-    pid = user[1];
-
-    bearertoken = user[2];
+    user = data[0];
+    buildingid = data[1];
   }
-  
 
-  Future<SocietyBuildingFloor> FloorsApi({required buildingid, required token}) async {
+  Future<SocietyBuildingFloor> FloorsApi(
+      {required buildingid, required token}) async {
     print("${buildingid.toString()}");
     print(token);
 
@@ -47,7 +42,6 @@ class SocietyBuildingFloorsController extends GetxController {
     var data = jsonDecode(response.body.toString());
 
     if (response.statusCode == 200) {
-      
       return SocietyBuildingFloor.fromJson(data);
     }
 

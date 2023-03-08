@@ -44,12 +44,15 @@ import '../Module/AddSocietyDetail/Add Phases/View/add_phases.dart';
 import '../Module/AddSocietyDetail/AddSocietyBuildingApartment/View/add_society_building_apartment.dart';
 import '../Module/AddSocietyDetail/AddSocietyBuildingFloors/View/add_society_building_floor_screen.dart';
 import '../Module/AddSocietyDetail/AddSocietyBuildings/View/add_society__buildings_screen.dart';
+import '../Module/AddSocietyDetail/BlockOrSocietyBuilding/View/block_or_society_building_screen.dart';
 import '../Module/AddSocietyDetail/BlocksOrBuildings/View/blocks_or_buildings_screen.dart';
 import '../Module/AddSocietyDetail/Houses/View/houses.dart';
+import '../Module/AddSocietyDetail/PhaseOrSocietyBuilding/View/phase_or_society_building_screen.dart';
 import '../Module/AddSocietyDetail/Phases/View/phases.dart';
 import '../Module/AddSocietyDetail/SocietyBuildingApartment/View/society_building_apartment_screen.dart';
 import '../Module/AddSocietyDetail/SocietyBuildingFloor/View/society_building_floor_screen.dart';
 import '../Module/AddSocietyDetail/SocietyBuildings/View/society_building_screen.dart';
+import '../Module/AddSocietyDetail/StreetOrBuilding/View/street_or_building_screen.dart';
 import '../Module/HomeScreen/View/home_screen.dart';
 import '../Module/UpdateGateKeeper/View/updategatekeeper_detail_screen.dart';
 
@@ -57,19 +60,15 @@ class RouteManagement {
   static List<GetPage> getPages() {
     return [
       GetPage(
-        name: splashscreen,
-        page: () => SplashScreen(),
-        binding: ScreenBindings(),
-        transition: Transition.leftToRight
-
-      ),
+          name: splashscreen,
+          page: () => SplashScreen(),
+          binding: ScreenBindings(),
+          transition: Transition.leftToRight),
       GetPage(
-        name: login,
-        page: () => Login(),
-        binding: ScreenBindings(),
-        transition: Transition.leftToRight
-        
-      ),
+          name: login,
+          page: () => Login(),
+          binding: ScreenBindings(),
+          transition: Transition.leftToRight),
       GetPage(
           name: homescreen,
           page: () => HomeScreen(),
@@ -284,43 +283,58 @@ class RouteManagement {
       ),
 
       GetPage(
-        name: blockorbuilding,
-        page: () => BlockOrBuilding(),
-        binding: ScreenBindings(),
-      ),
+          name: blockorbuilding,
+          page: () => BlockOrBuilding(),
+          binding: ScreenBindings(),
+          transition: Transition.leftToRight),
       GetPage(
-        name: societybuildingscreen,
-        page: () => SocietyBuildingScreen(),
-        binding: ScreenBindings(),
-      ),
+          name: societybuildingscreen,
+          page: () => SocietyBuildingScreen(),
+          binding: ScreenBindings(),
+          transition: Transition.rightToLeft),
 
       GetPage(
-        name: addsocietybuildingscreen,
-        page: () => AddSocietyBuildingScreen(),
-        binding: ScreenBindings(),
-      ),
+          name: addsocietybuildingscreen,
+          page: () => AddSocietyBuildingScreen(),
+          binding: ScreenBindings(),
+          transition: Transition.leftToRight),
       GetPage(
-        name: societybuildingfloorsscreen,
-        page: () => SocietyBuildingFloorsScreen(),
-        binding: ScreenBindings(),
-      ),
+          name: societybuildingfloorsscreen,
+          page: () => SocietyBuildingFloorsScreen(),
+          binding: ScreenBindings(),
+          transition: Transition.leftToRight),
       GetPage(
-        name: addsocietybuildingfloors,
-        page: () => AddSocietyBuildingFloors(),
-        binding: ScreenBindings(),
-      ),
+          name: addsocietybuildingfloors,
+          page: () => AddSocietyBuildingFloors(),
+          binding: ScreenBindings(),
+          transition: Transition.leftToRight),
 
       GetPage(
-        name: societybuildingapartmentscreen,
-        page: () => SocietyBuildingApartmentScreen(),
-        binding: ScreenBindings(),
-      ),
+          name: societybuildingapartmentscreen,
+          page: () => SocietyBuildingApartmentScreen(),
+          binding: ScreenBindings(),
+          transition: Transition.rightToLeft),
 
       GetPage(
-        name: addsocietybuildingapartmentsscreen,
-        page: () => AddSocietyBuildingApartmentsScreen(),
-        binding: ScreenBindings(),
-      ),
+          name: addsocietybuildingapartmentsscreen,
+          page: () => AddSocietyBuildingApartmentsScreen(),
+          binding: ScreenBindings(),
+          transition: Transition.rightToLeft),
+      GetPage(
+          name: streetorbuildingscreen,
+          page: () => StreetOrBuildingScreen(),
+          binding: ScreenBindings(),
+          transition: Transition.leftToRight),
+      GetPage(
+          name: blockorsocietybuilding,
+          page: () => BlockOrSocietyBuilding(),
+          binding: ScreenBindings(),
+          transition: Transition.leftToRight),
+      GetPage(
+          name: phaseorsocietybuilding,
+          page: () => PhaseOrSocietyBuilding(),
+          binding: ScreenBindings(),
+          transition: Transition.leftToRight),
     ];
   }
 }

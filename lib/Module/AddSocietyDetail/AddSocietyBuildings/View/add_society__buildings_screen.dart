@@ -80,7 +80,6 @@ class AddSocietyBuildingScreen extends GetView {
                                                 validator: emptyStringValidator,
                                                 controller: controller
                                                     .societyBuildingNameController,
-                                                
                                                 enabled: true,
                                                 decoration: InputDecoration(
                                                     errorBorder:
@@ -116,11 +115,14 @@ class AddSocietyBuildingScreen extends GetView {
                                   // print(controller.user.bearerToken);
 
                                   controller.addSocietyBuildingApi(
-                                    bearerToken: controller.bearerToken!,
+                                    dynamicid: controller.user.societyid!,
+                                    societyid: controller.user.societyid!,
+                                    subadminid: controller.user.userid!,
+                                    superadminid: controller.user.superadminid!,
+                                    bearerToken: controller.user.bearerToken!,
                                     BuildingName: controller
                                         .societyBuildingNameController.text
                                         .toString(),
-                                    pid: controller.pid!,
                                   );
                                 },
                                 name: 'Save',

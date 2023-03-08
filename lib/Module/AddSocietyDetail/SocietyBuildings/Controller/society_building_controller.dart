@@ -10,8 +10,8 @@ import '../Model/society_building_model.dart';
 class SocietyBuildingController extends GetxController {
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   var data = Get.arguments;
-  int? pid;
-  var bearertoken;
+
+  late final User user;
 
   SocietyBuilding? societyBuilding;
 
@@ -24,17 +24,17 @@ class SocietyBuildingController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    pid = data[0];
-    bearertoken = data[1];
+    user = data;
   }
 
   Future<SocietyBuilding> SocietyBuildingApi(
-      {required int pid, required String token}) async {
-    print("${pid.toString()}");
+      {required int dynamicid, required String token}) async {
+    print("${dynamicid.toString()}");
     print(token);
+    
 
     final response = await Http.get(
-      Uri.parse(Api.societybuildings + "/" + pid.toString()),
+      Uri.parse(Api.societybuildings + "/" + dynamicid.toString()),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': "Bearer $token"
@@ -43,17 +43,12 @@ class SocietyBuildingController extends GetxController {
 
     var data = jsonDecode(response.body.toString());
 
-    
-    
-
     if (response.statusCode == 200) {
       print(response.body);
-      
+
       return SocietyBuilding.fromJson(data);
     }
 
     return SocietyBuilding.fromJson(data);
   }
-
-  
 }

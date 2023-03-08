@@ -94,11 +94,9 @@ class AddSocietyBuildingFloors extends GetView {
                       onPressed: () {
                         // print(controller.user.userid);
                         // print(controller.user.bearerToken);
-                        
 
                         controller.addSocietybuildingFloorsApi(
-                            bearerToken: controller.bearertoken,
-                            
+                            bearerToken: controller.user.bearerToken!,
                             from: controller.fromController.text.toString(),
                             to: controller.toController.text.toString(),
                             buildingid: controller.buildingid!);

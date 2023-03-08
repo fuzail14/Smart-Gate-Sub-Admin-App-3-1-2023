@@ -20,11 +20,14 @@ import '../Module/AddSocietyDetail/Add Phases/View/add_phases.dart';
 import '../Module/AddSocietyDetail/AddSocietyBuildingApartment/View/add_society_building_apartment.dart';
 import '../Module/AddSocietyDetail/AddSocietyBuildingFloors/View/add_society_building_floor_screen.dart';
 import '../Module/AddSocietyDetail/AddSocietyBuildings/View/add_society__buildings_screen.dart';
+import '../Module/AddSocietyDetail/BlockOrSocietyBuilding/View/block_or_society_building_screen.dart';
 import '../Module/AddSocietyDetail/BlocksOrBuildings/View/blocks_or_buildings_screen.dart';
 import '../Module/AddSocietyDetail/Houses/View/houses.dart';
+import '../Module/AddSocietyDetail/PhaseOrSocietyBuilding/View/phase_or_society_building_screen.dart';
 import '../Module/AddSocietyDetail/SocietyBuildingApartment/View/society_building_apartment_screen.dart';
 import '../Module/AddSocietyDetail/SocietyBuildingFloor/View/society_building_floor_screen.dart';
 import '../Module/AddSocietyDetail/SocietyBuildings/View/society_building_screen.dart';
+import '../Module/AddSocietyDetail/StreetOrBuilding/View/street_or_building_screen.dart';
 import '../Module/AdminProfile/View/admin_profile_screen.dart';
 import '../Module/Events/View/events_screen.dart';
 import '../Module/Events/View/view_event_images_screen.dart';
@@ -102,16 +105,16 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => SocietyBuildingApartmentScreen());
     Get.lazyPut(() => AddSocietyBuildingApartmentsScreen());
 
-
-
     Get.lazyPut(() => AddMeasurements());
     Get.lazyPut(() => MeasurementView());
     Get.lazyPut(() => ResidentVerification());
     Get.lazyPut(() => GenerateBill());
     Get.lazyPut(() => GeneratedBill());
+    Get.lazyPut(() => StreetOrBuildingScreen());
+    Get.lazyPut(() => BlockOrSocietyBuilding());
+    Get.lazyPut(() => PhaseOrSocietyBuilding());
 
-
-
-
+    
+    
   }
 }

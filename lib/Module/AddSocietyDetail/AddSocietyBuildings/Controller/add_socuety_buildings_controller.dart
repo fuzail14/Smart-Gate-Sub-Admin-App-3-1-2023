@@ -6,13 +6,13 @@ import 'package:http/http.dart' as Http;
 import 'package:societyadminapp/Routes/set_routes.dart';
 
 import '../../../../Constants/api_routes.dart';
+import '../../../Login/Model/User.dart';
 
 class AddSocietyBuildingController extends GetxController {
   var data = Get.arguments;
-  int? pid;
+  late final User user;
   bool isLoading = false;
 
-  String? bearerToken;
   final societyBuildingNameController = TextEditingController();
 
   @override
@@ -20,18 +20,19 @@ class AddSocietyBuildingController extends GetxController {
     // TODO: implement onInit
 
     super.onInit();
-
-    pid = data[0];
-    bearerToken = data[1];
+    user = data;
   }
 
   addSocietyBuildingApi({
     required String bearerToken,
-    required int pid,
+    required int subadminid,
+    required int societyid,
+    required int superadminid,
+    required int dynamicid,
     required String BuildingName,
   }) async {
     print(bearerToken);
-    print(pid);
+
     print(BuildingName);
 
     isLoading = true;
@@ -42,8 +43,10 @@ class AddSocietyBuildingController extends GetxController {
         Http.MultipartRequest('POST', Uri.parse(Api.addsocietybuilding));
     request.headers.addAll(headers);
     request.fields['societybuildingname'] = BuildingName;
-
-    request.fields['pid'] = pid.toString();
+    request.fields['subadminid'] = subadminid.toString();
+    request.fields['societyid'] = societyid.toString();
+    request.fields['superadminid'] = superadminid.toString();
+    request.fields['dynamicid'] = dynamicid.toString();
 
     var responsed = await request.send();
     var response = await Http.Response.fromStream(responsed);
@@ -53,7 +56,7 @@ class AddSocietyBuildingController extends GetxController {
       print(data);
       print(response.body);
       Get.snackbar("Building Addedd Successfully", "");
-      Get.offAndToNamed(societybuildingscreen, arguments: [pid, bearerToken]);
+      Get.offAndToNamed(societybuildingscreen, arguments: user);
     } else if (response.statusCode == 403) {
       isLoading = false;
       update();

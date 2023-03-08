@@ -96,7 +96,7 @@ class AddSocietyBuildingApartmentsScreen extends GetView {
                         // print(controller.user.bearerToken);
 
                         controller.addApartmentsApi(
-                          bearerToken: controller.bearerToken!,
+                          bearerToken: controller.user.bearerToken!,
                           from: controller.fromController.text.toString(),
                           to: controller.toController.text.toString(),
                           fid: controller.fid!,

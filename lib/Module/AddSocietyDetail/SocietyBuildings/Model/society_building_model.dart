@@ -22,21 +22,30 @@ class SocietyBuilding {
 class Data {
   Data({
     required this.id,
-    required this.pid,
+    required this.subadminid,
+    required this.superadminid,
+    required this.societyid,
     required this.societybuildingname,
+    required this.dynamicid,
     required this.createdAt,
     required this.updatedAt,
   });
   late final int id;
-  late final int pid;
+  late final int subadminid;
+  late final int superadminid;
+  late final int societyid;
   late final String societybuildingname;
+  late final int dynamicid;
   late final String createdAt;
   late final String updatedAt;
   
   Data.fromJson(Map<String, dynamic> json){
     id = json['id'];
-    pid = json['pid'];
+    subadminid = json['subadminid'];
+    superadminid = json['superadminid'];
+    societyid = json['societyid'];
     societybuildingname = json['societybuildingname'];
+    dynamicid = json['dynamicid'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
@@ -44,8 +53,11 @@ class Data {
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['id'] = id;
-    _data['pid'] = pid;
+    _data['subadminid'] = subadminid;
+    _data['superadminid'] = superadminid;
+    _data['societyid'] = societyid;
     _data['societybuildingname'] = societybuildingname;
+    _data['dynamicid'] = dynamicid;
     _data['created_at'] = createdAt;
     _data['updated_at'] = updatedAt;
     return _data;

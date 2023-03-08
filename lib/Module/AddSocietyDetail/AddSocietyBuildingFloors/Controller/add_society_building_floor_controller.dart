@@ -9,24 +9,21 @@ import '../../../../Constants/api_routes.dart';
 import '../../../Login/Model/User.dart';
 
 class AddSocietyBuildingFloorsController extends GetxController {
-  var user = Get.arguments;
+  var data = Get.arguments;
   int? index;
   int? buildingid;
   var bearertoken;
-  
+  late final User user;
+
   bool isLoading = false;
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    
-    
 
-                    
-    buildingid=user[0];
-    bearertoken=user[2];
-    
+    user = data[0];
+    buildingid = data[1];
   }
 
   final fromController = TextEditingController();
@@ -34,9 +31,7 @@ class AddSocietyBuildingFloorsController extends GetxController {
 
   addSocietybuildingFloorsApi({
     required String bearerToken,
-    
     required int buildingid,
-
     required String from,
     required String to,
   }) async {
@@ -44,12 +39,13 @@ class AddSocietyBuildingFloorsController extends GetxController {
     update();
 
     Map<String, String> headers = {"Authorization": "Bearer $bearerToken"};
-    var request = Http.MultipartRequest('POST', Uri.parse(Api.addsocietybuildingfloors));
+    var request =
+        Http.MultipartRequest('POST', Uri.parse(Api.addsocietybuildingfloors));
     request.headers.addAll(headers);
 
     request.fields['from'] = from;
     request.fields['to'] = to;
-    
+
     request.fields['buildingid'] = buildingid.toString();
 
     var responsed = await request.send();
@@ -62,10 +58,9 @@ class AddSocietyBuildingFloorsController extends GetxController {
       print(data);
       print(response.body);
       Get.snackbar("Floors Add Successfully", "");
-      
-    
-      Get.offAndToNamed(societybuildingfloorsscreen, arguments: user);
 
+      Get.offAndToNamed(societybuildingfloorsscreen,
+          arguments: [user, buildingid]);
     } else if (response.statusCode == 403) {
       isLoading = false;
       update();

@@ -11,7 +11,9 @@ import '../Model/SocietyBuildingApartment.dart';
 class SocietyBuildingApartmentController extends GetxController {
   var data = Get.arguments;
   int? fid;
-  String? bearerToken;
+  int? bid;
+
+  late final User user;
 
   @override
   void onInit() {
@@ -19,8 +21,9 @@ class SocietyBuildingApartmentController extends GetxController {
 
     super.onInit();
 
-    fid = data[0];
-    bearerToken = data[1];
+    user = data[0];
+    fid = data[1];
+    bid = data[2];
   }
 
   Future<SocietyBuildingApartment> SocietyBuildingApartmentsApi(

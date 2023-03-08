@@ -63,4 +63,12 @@ const String measurementview = '/MeasurementView';
 const String residentverification = '/ResidentVerification';
 const String generatebill = '/GenerateBill';
 const String generatedbill = '/GeneratedBill';
+const String streetorbuildingscreen = '/StreetOrBuildingScreen';
+const String blockorsocietybuilding = '/BlockOrSocietyBuilding';
+const String phaseorsocietybuilding = '/PhaseOrSocietyBuilding';
+
+
+
+
+
 

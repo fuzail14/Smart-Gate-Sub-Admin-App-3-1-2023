@@ -15,71 +15,106 @@ class SocietyBuildingApartmentScreen extends GetView {
     return GetBuilder<SocietyBuildingApartmentController>(
         init: SocietyBuildingApartmentController(),
         builder: (controller) {
-          return Scaffold(
-              floatingActionButton: IconButton(
-                  padding: EdgeInsets.only(top: 85),
-                  iconSize: MediaQuery.of(context).size.height * 0.065,
-                  icon: SvgPicture.asset('assets/floatingbutton.svg'),
-                  onPressed: () {
-                    Get.offAndToNamed(addsocietybuildingapartmentsscreen,
-                        arguments: [controller.fid, controller.bearerToken]);
-                  }),
-              body: Column(
-                children: [
-                  MyBackButton(
-                    text: 'Apartments',
-                  ),
-                  Expanded(
-                      child: FutureBuilder(
-                          future: controller.SocietyBuildingApartmentsApi(
-                              fid: controller.fid!,
-                              bearerToken: controller.bearerToken!),
-                          builder:
-                              (BuildContext context, AsyncSnapshot snapshot) {
-                            if (snapshot.hasData) {
-                              return ListView.builder(
-                                itemCount: snapshot.data.data.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return SizedBox(
-                                    height: 80,
-                                    child: Card(
-                                      child: Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            20, 10, 0, 0),
-                                        child: Text(
-                                          snapshot.data.data[index].name
-                                              .toString(),
-                                          style: GoogleFonts.ubuntu(
-                                              fontStyle: FontStyle.normal,
-                                              // color: secondaryColor,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 18,
-                                              color: HexColor('#4D4D4D')),
+          return WillPopScope(
+            onWillPop: () async {
+              if (controller.user.structureType == 1) {
+                Get.offAndToNamed(societybuildingfloorsscreen,
+                    arguments: [controller.user, controller.bid]);
+              } else if (controller.user.structureType == 2) {
+                Get.offAndToNamed(societybuildingfloorsscreen,
+                    arguments: [controller.user, controller.bid]);
+              } else if (controller.user.structureType == 3) {
+                Get.offAndToNamed(societybuildingfloorsscreen,
+                    arguments: [controller.user, controller.bid]);
+              }
+
+              return false;
+            },
+            child: SafeArea(
+              child: Scaffold(
+                  floatingActionButton: IconButton(
+                      padding: EdgeInsets.only(top: 85),
+                      iconSize: MediaQuery.of(context).size.height * 0.065,
+                      icon: SvgPicture.asset('assets/floatingbutton.svg'),
+                      onPressed: () {
+                        Get.offAndToNamed(addsocietybuildingapartmentsscreen,
+                            arguments: [
+                              controller.user,
+                              controller.fid,
+                              controller.bid
+                            ]);
+                      }),
+                  body: Column(
+                    children: [
+                      MyBackButton(
+                        text: 'Apartments',
+                        onTap: () {
+                          if (controller.user.structureType == 1) {
+                            Get.offAndToNamed(societybuildingfloorsscreen,
+                                arguments: [controller.user, controller.bid]);
+                          } else if (controller.user.structureType == 2) {
+                            Get.offAndToNamed(societybuildingfloorsscreen,
+                                arguments: [controller.user, controller.bid]);
+                          } else if (controller.user.structureType == 3) {
+                            Get.offAndToNamed(societybuildingfloorsscreen,
+                                arguments: [controller.user, controller.bid]);
+                          }
+                        },
+                      ),
+                      Expanded(
+                          child: FutureBuilder(
+                              future: controller.SocietyBuildingApartmentsApi(
+                                  fid: controller.fid!,
+                                  bearerToken: controller.user.bearerToken!),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot snapshot) {
+                                if (snapshot.hasData) {
+                                  return ListView.builder(
+                                    itemCount: snapshot.data.data.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return SizedBox(
+                                        height: 80,
+                                        child: Card(
+                                          child: Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                20, 10, 0, 0),
+                                            child: Text(
+                                              snapshot.data.data[index].name
+                                                  .toString(),
+                                              style: GoogleFonts.ubuntu(
+                                                  fontStyle: FontStyle.normal,
+                                                  // color: secondaryColor,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 18,
+                                                  color: HexColor('#4D4D4D')),
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
+                                      );
+                                    },
                                   );
-                                },
-                              );
-                            } else if (snapshot.hasError) {
-                              return Icon(Icons.error_outline);
-                            } else {
-                              return Loader();
-                            }
-                          })),
-//                 MyButton(
-//                     name: 'Next',
-//                     onPressed: controller.isLoading
-//                         ? null
-//                         : () {
-//                             if (controller.formkey.currentState!.validate()) {
-// print(controller.myApiData);
-//                             } else {
-//                               return null;
-//                             }
-//                           })
-                ],
-              ));
+                                } else if (snapshot.hasError) {
+                                  return Icon(Icons.error_outline);
+                                } else {
+                                  return Loader();
+                                }
+                              })),
+                      //                 MyButton(
+                      //                     name: 'Next',
+                      //                     onPressed: controller.isLoading
+                      //                         ? null
+                      //                         : () {
+                      //                             if (controller.formkey.currentState!.validate()) {
+                      // print(controller.myApiData);
+                      //                             } else {
+                      //                               return null;
+                      //                             }
+                      //                           })
+                    ],
+                  )),
+            ),
+          );
         });
   }
 }

@@ -83,7 +83,6 @@ class Street extends GetView {
                                           height: 80,
                                           child: GestureDetector(
                                             onTap: () {
-                                              
                                               Get.offAndToNamed(houses,
                                                   arguments: [
                                                     controller.user,

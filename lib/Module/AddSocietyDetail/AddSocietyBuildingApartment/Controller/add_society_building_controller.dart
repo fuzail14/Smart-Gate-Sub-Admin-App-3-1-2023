@@ -6,12 +6,16 @@ import 'package:http/http.dart' as Http;
 import 'package:societyadminapp/Routes/set_routes.dart';
 
 import '../../../../Constants/api_routes.dart';
+import '../../../Login/Model/User.dart';
 
 class AddSocietyBuildingApartmentsController extends GetxController {
-  var user = Get.arguments;
+  var argumnet = Get.arguments;
   int? fid;
+  int? bid;
+
   bool isLoading = false;
-  String? bearerToken;
+
+  late final User user;
   final fromController = TextEditingController();
   final toController = TextEditingController();
 
@@ -21,8 +25,8 @@ class AddSocietyBuildingApartmentsController extends GetxController {
 
     super.onInit();
 
-    fid = user[0];
-    bearerToken = user[1];
+    user = argumnet[0];
+    fid = argumnet[1];
   }
 
   addApartmentsApi({
@@ -31,7 +35,6 @@ class AddSocietyBuildingApartmentsController extends GetxController {
     required String from,
     required String to,
   }) async {
-
     print(bearerToken);
     print(fid);
     print(from);
@@ -41,7 +44,8 @@ class AddSocietyBuildingApartmentsController extends GetxController {
     update();
 
     Map<String, String> headers = {"Authorization": "Bearer $bearerToken"};
-    var request = Http.MultipartRequest('POST', Uri.parse(Api.addsocietybuildingapartments));
+    var request = Http.MultipartRequest(
+        'POST', Uri.parse(Api.addsocietybuildingapartments));
     request.headers.addAll(headers);
     request.fields['from'] = from;
     request.fields['to'] = to;
@@ -57,10 +61,11 @@ class AddSocietyBuildingApartmentsController extends GetxController {
       print(data);
       print(response.body);
       Get.snackbar("Apartments Add Successfully", "");
-      Get.offAndToNamed(societybuildingapartmentscreen, arguments: user );
-
+      Get.offAndToNamed(societybuildingapartmentscreen,
+          arguments: [user, fid, bid]);
     } else if (response.statusCode == 403) {
       isLoading = false;
+
       update();
       var data = jsonDecode(response.body.toString());
 
