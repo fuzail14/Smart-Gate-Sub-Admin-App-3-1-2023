@@ -93,7 +93,8 @@ class Phases extends GetView {
                                                   //     ]
 
                                                   //     );
-                                                  Get.offNamed(blocks,
+                                                  Get.offNamed(
+                                                      phasebuildingorblock,
                                                       arguments: [
                                                         controller.user,
                                                         snapshot.data

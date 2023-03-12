@@ -28,8 +28,10 @@ const String serviceproviderscreen = '/ServiceProviderScreen';
 const String addserviceproviderscreen = '/AddServiceProviderScreen';
 const String addservicestypesscreen = '/AddServicesTypesScreen';
 const String setyouravailability = '/SetYourAvailability';
-const String serviceproviderviewprofilescreen = '/ServiceProviderViewProfileScreen';
-const String serviceprovidersattendancescreen = '/ServiceProvidersAttendanceScreen';
+const String serviceproviderviewprofilescreen =
+    '/ServiceProviderViewProfileScreen';
+const String serviceprovidersattendancescreen =
+    '/ServiceProvidersAttendanceScreen';
 const String viewattendancedetailscreen = '/ViewAttendanceDetailScreen';
 const String noticeboardscreen = '/NoticeBoardScreen';
 const String addnoticeboardscreen = '/AddNoticeBoardScreen';
@@ -52,7 +54,8 @@ const String addsocietybuildingscreen = '/AddSocietyBuildingScreen';
 const String societybuildingfloorsscreen = '/SocietyBuildingFloorsScreen';
 const String addsocietybuildingfloors = '/AddSocietyBuildingFloors';
 const String societybuildingapartmentscreen = '/SocietyBuildingApartmentScreen';
-const String addsocietybuildingapartmentsscreen = '/AddSocietyBuildingApartmentsScreen';
+const String addsocietybuildingapartmentsscreen =
+    '/AddSocietyBuildingApartmentsScreen';
 
 const String addfloors = '/AddFloors';
 const String floors = '/Floors';
@@ -66,6 +69,14 @@ const String generatedbill = '/GeneratedBill';
 const String streetorbuildingscreen = '/StreetOrBuildingScreen';
 const String blockorsocietybuilding = '/BlockOrSocietyBuilding';
 const String phaseorsocietybuilding = '/PhaseOrSocietyBuilding';
+const String blockbuildingorstreet = '/BlockBuildingOrStreet';
+const String blockbuilding = '/BlockBuilding';
+const String addblockbuildingscreen = '/AddBlockBuildingScreen';
+const String phasebuildingorblock = '/PhaseBuildingOrBlock';
+const String blockorphasebuildingfloorsscreen = '/BlockOrPhaseBuildingFloorsScreen';
+const String addblockorphasebuildingfloors = '/AddBlockOrPhaseBuildingFloors';
+const String blockOrphasebuildingapartmentsscreen = '/BlockOrPhaseBuildingApartmentsScreen';
+const String addblockorphasebuildingapartmentsscreen = '/AddBlockOrPhaseBuildingApartmentsScreen';
 
 
 

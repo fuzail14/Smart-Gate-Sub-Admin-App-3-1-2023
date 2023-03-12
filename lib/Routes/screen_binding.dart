@@ -17,12 +17,22 @@ import '../Module/AddGateKepeer/View/add_gatekepeer.dart';
 import '../Module/AddNoticeBoard/View/add_notice_board_screen.dart';
 import '../Module/AddResident/View/add_resident.dart';
 import '../Module/AddSocietyDetail/Add Phases/View/add_phases.dart';
+import '../Module/AddSocietyDetail/AddBlockOrPhaseBuilding/View/add_block_building_screen.dart';
+
+import '../Module/AddSocietyDetail/AddBlockOrPhaseBuildingApartment/View/add_block_or_phase_building_floors_screen.dart';
+import '../Module/AddSocietyDetail/AddBlockOrPhaseBuildingFloor/View/add_block_or_phase_building_floors_screen.dart';
 import '../Module/AddSocietyDetail/AddSocietyBuildingApartment/View/add_society_building_apartment.dart';
 import '../Module/AddSocietyDetail/AddSocietyBuildingFloors/View/add_society_building_floor_screen.dart';
 import '../Module/AddSocietyDetail/AddSocietyBuildings/View/add_society__buildings_screen.dart';
+import '../Module/AddSocietyDetail/BlockOrPhaseBuilding/View/block_building_screen.dart';
+import '../Module/AddSocietyDetail/BlockBuildingOrStreet/View/block_building_or_street_screen.dart';
+import '../Module/AddSocietyDetail/BlockOrPhaseBuildingApartment/View/block_or_phase_building_apartment_screen.dart';
+import '../Module/AddSocietyDetail/BlockOrPhaseBuildingFloor/View/block_or_phase_building_floor_screen.dart';
 import '../Module/AddSocietyDetail/BlockOrSocietyBuilding/View/block_or_society_building_screen.dart';
 import '../Module/AddSocietyDetail/BlocksOrBuildings/View/blocks_or_buildings_screen.dart';
 import '../Module/AddSocietyDetail/Houses/View/houses.dart';
+
+import '../Module/AddSocietyDetail/PhaseBuildingOrBlock/View/phase_building_or_block_screen.dart';
 import '../Module/AddSocietyDetail/PhaseOrSocietyBuilding/View/phase_or_society_building_screen.dart';
 import '../Module/AddSocietyDetail/SocietyBuildingApartment/View/society_building_apartment_screen.dart';
 import '../Module/AddSocietyDetail/SocietyBuildingFloor/View/society_building_floor_screen.dart';
@@ -113,8 +123,13 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => StreetOrBuildingScreen());
     Get.lazyPut(() => BlockOrSocietyBuilding());
     Get.lazyPut(() => PhaseOrSocietyBuilding());
-
-    
-    
+    Get.lazyPut(() => BlockBuildingOrStreet());
+    Get.lazyPut(() => BlockBuilding());
+    Get.lazyPut(() => AddBlockBuildingScreen());
+    Get.lazyPut(() => PhaseBuildingOrBlock());
+    Get.lazyPut(() => BlockOrPhaseBuildingFloorsScreen());
+    Get.lazyPut(() => AddBlockOrPhaseBuildingFloors());
+    Get.lazyPut(() => BlockOrPhaseBuildingApartmentsScreen());
+    Get.lazyPut(() => AddBlockOrPhaseBuildingApartmentsScreen());
   }
 }

@@ -83,10 +83,24 @@ class Blocks extends GetView {
                                               //bid        print( snapshot.data.data[index].id);
                                               //pid        print( snapshot.data.data[index].pid);
 
-                                              Get.offNamed(streets, arguments: [
-                                                controller.user,
-                                                snapshot.data.data[index].id
-                                              ]);
+                                              if (controller
+                                                      .user.structureType ==
+                                                  2) {
+                                                Get.offNamed(
+                                                    blockbuildingorstreet,
+                                                    arguments: [
+                                                      controller.user,
+                                                      snapshot
+                                                          .data.data[index].id
+                                                    ]);
+                                              } else {
+                                                Get.offNamed(streets,
+                                                    arguments: [
+                                                      controller.user,
+                                                      snapshot
+                                                          .data.data[index].id
+                                                    ]);
+                                              }
                                             },
                                             child: Column(
                                               children: [

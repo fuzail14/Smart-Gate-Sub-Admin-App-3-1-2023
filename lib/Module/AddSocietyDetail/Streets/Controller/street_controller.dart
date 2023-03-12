@@ -45,13 +45,14 @@ class StreetsController extends GetxController {
       user = await MySharedPreferences.getUserData();
 
       if (user.structureType == 1) {
-        print('yahan ata ha k ni');
+        
 
         user = data;
         print(user);
       } else {
         user = data[0];
         blockid = data[1];
+        print("blockid ${blockid}");
       }
 
       update();

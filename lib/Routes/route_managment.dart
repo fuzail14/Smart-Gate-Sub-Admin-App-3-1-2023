@@ -41,12 +41,22 @@ import 'package:societyadminapp/Routes/set_routes.dart';
 
 import '../Module/AddResident/View/add_resident.dart';
 import '../Module/AddSocietyDetail/Add Phases/View/add_phases.dart';
+import '../Module/AddSocietyDetail/AddBlockOrPhaseBuilding/View/add_block_building_screen.dart';
+
+import '../Module/AddSocietyDetail/AddBlockOrPhaseBuildingApartment/View/add_block_or_phase_building_floors_screen.dart';
+import '../Module/AddSocietyDetail/AddBlockOrPhaseBuildingFloor/View/add_block_or_phase_building_floors_screen.dart';
 import '../Module/AddSocietyDetail/AddSocietyBuildingApartment/View/add_society_building_apartment.dart';
 import '../Module/AddSocietyDetail/AddSocietyBuildingFloors/View/add_society_building_floor_screen.dart';
 import '../Module/AddSocietyDetail/AddSocietyBuildings/View/add_society__buildings_screen.dart';
+import '../Module/AddSocietyDetail/BlockOrPhaseBuilding/View/block_building_screen.dart';
+import '../Module/AddSocietyDetail/BlockBuildingOrStreet/View/block_building_or_street_screen.dart';
+import '../Module/AddSocietyDetail/BlockOrPhaseBuildingApartment/View/block_or_phase_building_apartment_screen.dart';
+import '../Module/AddSocietyDetail/BlockOrPhaseBuildingFloor/View/block_or_phase_building_floor_screen.dart';
 import '../Module/AddSocietyDetail/BlockOrSocietyBuilding/View/block_or_society_building_screen.dart';
 import '../Module/AddSocietyDetail/BlocksOrBuildings/View/blocks_or_buildings_screen.dart';
 import '../Module/AddSocietyDetail/Houses/View/houses.dart';
+
+import '../Module/AddSocietyDetail/PhaseBuildingOrBlock/View/phase_building_or_block_screen.dart';
 import '../Module/AddSocietyDetail/PhaseOrSocietyBuilding/View/phase_or_society_building_screen.dart';
 import '../Module/AddSocietyDetail/Phases/View/phases.dart';
 import '../Module/AddSocietyDetail/SocietyBuildingApartment/View/society_building_apartment_screen.dart';
@@ -333,6 +343,50 @@ class RouteManagement {
       GetPage(
           name: phaseorsocietybuilding,
           page: () => PhaseOrSocietyBuilding(),
+          binding: ScreenBindings(),
+          transition: Transition.leftToRight),
+
+      GetPage(
+          name: blockbuildingorstreet,
+          page: () => BlockBuildingOrStreet(),
+          binding: ScreenBindings(),
+          transition: Transition.leftToRight),
+
+      GetPage(
+          name: blockbuilding,
+          page: () => BlockBuilding(),
+          binding: ScreenBindings(),
+          transition: Transition.leftToRight),
+
+      GetPage(
+          name: addblockbuildingscreen,
+          page: () => AddBlockBuildingScreen(),
+          binding: ScreenBindings(),
+          transition: Transition.leftToRight),
+      GetPage(
+          name: phasebuildingorblock,
+          page: () => PhaseBuildingOrBlock(),
+          binding: ScreenBindings(),
+          transition: Transition.leftToRight),
+
+      GetPage(
+          name: blockorphasebuildingfloorsscreen,
+          page: () => BlockOrPhaseBuildingFloorsScreen(),
+          binding: ScreenBindings(),
+          transition: Transition.leftToRight),
+      GetPage(
+          name: addblockorphasebuildingfloors,
+          page: () => AddBlockOrPhaseBuildingFloors(),
+          binding: ScreenBindings(),
+          transition: Transition.leftToRight),
+      GetPage(
+          name: blockOrphasebuildingapartmentsscreen,
+          page: () => BlockOrPhaseBuildingApartmentsScreen(),
+          binding: ScreenBindings(),
+          transition: Transition.leftToRight),
+      GetPage(
+          name: addblockorphasebuildingapartmentsscreen,
+          page: () => AddBlockOrPhaseBuildingApartmentsScreen(),
           binding: ScreenBindings(),
           transition: Transition.leftToRight),
     ];

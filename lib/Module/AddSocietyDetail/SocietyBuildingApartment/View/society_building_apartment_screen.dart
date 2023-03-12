@@ -117,4 +117,5 @@ class SocietyBuildingApartmentScreen extends GetView {
           );
         });
   }
+
 }

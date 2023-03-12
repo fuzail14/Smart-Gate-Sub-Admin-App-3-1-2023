@@ -96,7 +96,7 @@ class BlockOrSocietyBuilding extends GetView {
                           ),
                           GestureDetector(
                             onTap: () async {
-                              Get.toNamed(societybuildingscreen,
+                              Get.offAndToNamed(societybuildingscreen,
                                   arguments: controller.user);
                             },
                             child: Card(
